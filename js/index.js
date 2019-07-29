@@ -41,7 +41,7 @@ function init(){
   // ^^ creates a cube
 
   //create material
-  const material = new THREE.MeshStandardMaterial({color: 0xff0059});
+  const material = new THREE.MeshStandardMaterial({color: 0xffffff});
 
   //create a mesh container
   mesh = new THREE.Mesh( geometry, material );
@@ -51,39 +51,58 @@ function init(){
   //remove using scene.remove
 
   //create directional lighting
-  const light = new THREE.DirectionalLight( 0xffffff, 5.0 );
+  const light = new THREE.DirectionalLight( 0x0000ff, 5.0 );
+
+  const light2 = new THREE.DirectionalLight( 0xff0000, 5.0);
+
+  const light3 = new THREE.DirectionalLight( 0x00ff00, 2.5);
 
   //move light back and up
-  light.position.set( 10, 10, 10);
+  light.position.set( -10, -10, 10);
+  light2.position.set( 10, 10, 10 );
+  light3.position.set(0,0,10);
 
   //add the light
   scene.add(light);
+  scene.add(light2);
+  scene.add(light3);
 
 
   //create the renderer
-  renderer = new THREE.WebGLRenderer
+  renderer = new THREE.WebGLRenderer({ antialias: true })
+  //antialias smoothes out pixelated edges
 
   renderer.setSize( container.clientWidth, container.clientHeight );
   renderer.setPixelRatio( window.devicePixelRatio );
 
   container.appendChild( renderer.domElement );
 
+  renderer.setAnimationLoop( () => {
+    update();
+    render();
+  })
+
 }
 
-function animate(){
-
-  //recusively calls the animate() method
-  requestAnimationFrame( animate );
-  //^^should allow for 60 fps animation
-
+function update(){
   //rotate
   mesh.rotation.z += 0.01;
   mesh.rotation.x += 0.01;
-  mesh.rotation.y += 0.01;
+  mesh.rotation.y += 0.0;
+}
 
+function render(){
   //render the scene
   renderer.render( scene, camera );
 }
 
+function onWindowResize(){
+  camera.aspect = container.clientWidth / container.clientHeight
+  camera.updateProjectionMatrix();
+  renderer.setSize( container.clientWidth, container.clientHeight )
+}
+
+window.addEventListener( 'resize', onWindowResize )
+//use renderer.setAnimationLoop( null ); to stop
+
 init();
-animate();
