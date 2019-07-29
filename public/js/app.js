@@ -82,15 +82,15 @@ function init(){
     update();
     render();
   })
-
-  composer = new THREE.EffectComposer( renderer );
-				composer.addPass( new THREE.RenderPass( scene, camera ) );
-				var effect = new THREE.ShaderPass( DotScreenShader );
-				effect.uniforms[ 'scale' ].value = 4;
-				composer.addPass( effect );
-				var effect = new THREE.ShaderPass( RGBShiftShader );
-				effect.uniforms[ 'amount' ].value = 0.0015;
-				composer.addPass( effect );
+  //
+  // composer = new THREE.EffectComposer( renderer );
+	// 			composer.addPass( new THREE.RenderPass( scene, camera ) );
+	// 			var effect = new THREE.ShaderPass( DotScreenShader );
+	// 			effect.uniforms[ 'scale' ].value = 4;
+	// 			composer.addPass( effect );
+	// 			var effect = new THREE.ShaderPass( RGBShiftShader );
+	// 			effect.uniforms[ 'amount' ].value = 0.0015;
+	// 			composer.addPass( effect );
 
 
 }
