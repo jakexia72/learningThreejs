@@ -4,11 +4,21 @@
   "description": "Trying WebGL",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "Jake Xia",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "three": "^0.106.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakexia72/learningThreejs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jakexia72/learningThreejs/issues"
+  },
+  "homepage": "https://github.com/jakexia72/learningThreejs#readme"
 }
