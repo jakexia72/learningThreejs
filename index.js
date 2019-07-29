@@ -1,4 +1,5 @@
 const express = require('express');
+const THREE = require('three');
 const app = express();
 const port = process.env.PORT ||  5353;
 

@@ -3,12 +3,13 @@
 //Geometry -- defines shape of Mesh
 //Material -- defines the look of the mesh surface
 
-
 let container;
 let camera;
 let renderer;
 let scene;
 let mesh;
+
+let composer;
 
 function init(){
   container = document.querySelector( '#scene-container')
@@ -81,6 +82,16 @@ function init(){
     update();
     render();
   })
+
+  composer = new THREE.EffectComposer( renderer );
+				composer.addPass( new THREE.RenderPass( scene, camera ) );
+				var effect = new THREE.ShaderPass( DotScreenShader );
+				effect.uniforms[ 'scale' ].value = 4;
+				composer.addPass( effect );
+				var effect = new THREE.ShaderPass( RGBShiftShader );
+				effect.uniforms[ 'amount' ].value = 0.0015;
+				composer.addPass( effect );
+
 
 }
 
