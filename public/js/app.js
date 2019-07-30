@@ -58,15 +58,18 @@ function init(){
 
   const light3 = new THREE.DirectionalLight( 0x00ff00, 2.5);
 
+  const light4 = new THREE.DirectionalLight( 0x00ff00, 5.0);
   //move light back and up
   light.position.set( -10, -10, 10);
   light2.position.set( 10, 10, 10 );
   light3.position.set(0,0,10);
+  light4.position.set(0,40,-25);
 
   //add the light
   scene.add(light);
   scene.add(light2);
   scene.add(light3);
+  scene.add(light4);
 
 
   //create the renderer
