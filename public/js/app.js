@@ -41,8 +41,22 @@ function init(){
   const geometry = new THREE.BoxBufferGeometry( 2, 2, 2);
   // ^^ creates a cube
 
+  //create texture loader.
+  const textureLoader = new THREE.TextureLoader();
+
+  const texture = textureLoader.load( 'textures/uv_test_bw.png' );
+  //^^asynchronous loading
+
+  //set color space
+  texture.encoding = THREE.sRGBEncoding;
+
+  // reduce blurring at glancing angles
+  texture.anisotropy = 16;
+
   //create material
-  const material = new THREE.MeshStandardMaterial({color: 0xffffff});
+  const material = new THREE.MeshStandardMaterial({
+    map: texture,
+  });
 
   //create a mesh container
   mesh = new THREE.Mesh( geometry, material );
@@ -85,15 +99,6 @@ function init(){
     update();
     render();
   })
-  //
-  // composer = new THREE.EffectComposer( renderer );
-	// 			composer.addPass( new THREE.RenderPass( scene, camera ) );
-	// 			var effect = new THREE.ShaderPass( DotScreenShader );
-	// 			effect.uniforms[ 'scale' ].value = 4;
-	// 			composer.addPass( effect );
-	// 			var effect = new THREE.ShaderPass( RGBShiftShader );
-	// 			effect.uniforms[ 'amount' ].value = 0.0015;
-	// 			composer.addPass( effect );
 
 
 }
