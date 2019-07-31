@@ -38,7 +38,7 @@ function init(){
 
 
   //create geometry
-  const geometry = new THREE.BoxBufferGeometry( 2, 2, 2);
+  const geometry = new THREE.BoxBufferGeometry( 2.5, 2.5, 2.5 );
   // ^^ creates a cube
 
   //create texture loader.
@@ -57,6 +57,9 @@ function init(){
   const material = new THREE.MeshStandardMaterial({
     map: texture,
   });
+  //^^ this basic map is one of many kinds
+  //   -> can hold bumpiness
+  //   -> alpha map holds transparency
 
   //create a mesh container
   mesh = new THREE.Mesh( geometry, material );
@@ -66,13 +69,13 @@ function init(){
   //remove using scene.remove
 
   //create directional lighting
-  const light = new THREE.DirectionalLight( 0x0000ff, 5.0 );
+  const light = new THREE.DirectionalLight( 0x0000ff, 4.0 );
 
-  const light2 = new THREE.DirectionalLight( 0xff0000, 5.0);
+  const light2 = new THREE.DirectionalLight( 0xff0000, 4.0);
 
   const light3 = new THREE.DirectionalLight( 0x00ff00, 2.5);
 
-  const light4 = new THREE.DirectionalLight( 0x00ff00, 5.0);
+  const light4 = new THREE.DirectionalLight( 0x00ff00, 4.0);
   //move light back and up
   light.position.set( -10, -10, 10);
   light2.position.set( 10, 10, 10 );
@@ -93,6 +96,10 @@ function init(){
   renderer.setSize( container.clientWidth, container.clientHeight );
   renderer.setPixelRatio( window.devicePixelRatio );
 
+  //gamma correction to improve colour accuracy
+  renderer.gammaFactor = 2.2;
+  renderer.gammaOutput = true;
+
   container.appendChild( renderer.domElement );
 
   renderer.setAnimationLoop( () => {
@@ -103,11 +110,21 @@ function init(){
 
 }
 
+var counter = 0;
+var inc = 0.0025;
+
 function update(){
   //rotate
   mesh.rotation.z += 0.01;
   mesh.rotation.x += 0.01;
-  mesh.rotation.y += 0.0;
+  mesh.rotation.y += 0.01;
+
+  //stuff I added jsut to spice things up
+  counter += inc
+  if(Math.abs(counter) > 0.03){
+    inc = inc * -1;
+  }
+  mesh.translateX ( counter );
 }
 
 function render(){
