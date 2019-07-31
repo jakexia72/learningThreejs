@@ -20,6 +20,20 @@ function init(){
   // Set the background color
   scene.background = new THREE.Color( 'black' );
 
+  //refactor
+  createCamera();
+  createLights();
+  createMeshes();
+  createRenderer();
+
+  renderer.setAnimationLoop( () => {
+    update();
+    render();
+  })
+
+}
+
+function createCamera(){
   // Create a Camera
   const fov = 35; // Field of View
   const aspect = container.clientWidth / container.clientHeight;
@@ -35,8 +49,31 @@ function init(){
 
   //setting the position of the camera a bit back (positive z direction)
   camera.position.set( 0, 0, 10 );
+}
 
+function createLights(){
+  //create directional lighting
+  const light = new THREE.DirectionalLight( 0x0000ff, 4.0 );
 
+  const light2 = new THREE.DirectionalLight( 0xff0000, 4.0);
+
+  const light3 = new THREE.DirectionalLight( 0x00ff00, 2.5);
+
+  const light4 = new THREE.DirectionalLight( 0x00ff00, 4.0);
+  //move light back and up
+  light.position.set( -10, -10, 10);
+  light2.position.set( 10, 10, 10 );
+  light3.position.set(0,0,10);
+  light4.position.set(0,40,-25);
+
+  //add the light
+  scene.add(light);
+  scene.add(light2);
+  scene.add(light3);
+  scene.add(light4);
+}
+
+function createMeshes(){
   //create geometry
   const geometry = new THREE.BoxBufferGeometry( 2.5, 2.5, 2.5 );
   // ^^ creates a cube
@@ -67,28 +104,9 @@ function init(){
   //add mesh to scene
   scene.add( mesh );
   //remove using scene.remove
+}
 
-  //create directional lighting
-  const light = new THREE.DirectionalLight( 0x0000ff, 4.0 );
-
-  const light2 = new THREE.DirectionalLight( 0xff0000, 4.0);
-
-  const light3 = new THREE.DirectionalLight( 0x00ff00, 2.5);
-
-  const light4 = new THREE.DirectionalLight( 0x00ff00, 4.0);
-  //move light back and up
-  light.position.set( -10, -10, 10);
-  light2.position.set( 10, 10, 10 );
-  light3.position.set(0,0,10);
-  light4.position.set(0,40,-25);
-
-  //add the light
-  scene.add(light);
-  scene.add(light2);
-  scene.add(light3);
-  scene.add(light4);
-
-
+function createRenderer(){
   //create the renderer
   renderer = new THREE.WebGLRenderer({ antialias: true })
   //antialias smoothes out pixelated edges
@@ -101,17 +119,10 @@ function init(){
   renderer.gammaOutput = true;
 
   container.appendChild( renderer.domElement );
-
-  renderer.setAnimationLoop( () => {
-    update();
-    render();
-  })
-
-
 }
 
 var counter = 0;
-var inc = 0.0025;
+var inc = 0.0075;
 
 function update(){
   //rotate
@@ -121,10 +132,10 @@ function update(){
 
   //stuff I added jsut to spice things up
   counter += inc
-  if(Math.abs(counter) > 0.03){
+  if(Math.abs(counter) > 0.1){
     inc = inc * -1;
   }
-  mesh.translateX ( counter );
+  mesh.translateZ ( counter );
 }
 
 function render(){
