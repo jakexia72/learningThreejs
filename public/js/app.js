@@ -5,6 +5,7 @@
 
 let container;
 let camera;
+let controls;
 let renderer;
 let scene;
 let mesh;
@@ -22,6 +23,7 @@ function init(){
 
   //refactor
   createCamera();
+  createControls();
   createLights();
   createMeshes();
   createRenderer();
@@ -48,7 +50,7 @@ function createCamera(){
   //fov defines the angle of the viewing frustum (humans have 120 deg)
 
   //setting the position of the camera a bit back (positive z direction)
-  camera.position.set( 0, 0, 10 );
+  camera.position.set( -4, 4, 10 );
 }
 
 function createLights(){
@@ -72,6 +74,11 @@ function createLights(){
   scene.add(light3);
   scene.add(light4);
 }
+
+function createControls() {
+  controls = new THREE.OrbitControls( camera, container );
+}
+
 
 function createMeshes(){
   //create geometry
