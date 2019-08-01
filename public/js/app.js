@@ -141,6 +141,9 @@ function createRenderer(){
   renderer.gammaFactor = 2.2;
   renderer.gammaOutput = true;
 
+  //makes light behave physcially correct
+  renderer.physicallyCorrectLights = true;
+
   container.appendChild( renderer.domElement );
 }
 
