@@ -12,6 +12,12 @@ let mesh;
 
 let composer;
 
+let tempBtn = document.querySelector( '#spinning' )
+
+$(tempBtn).click(function(){
+  renderer.setAnimationLoop( null );
+})
+
 function init(){
   container = document.querySelector( '#scene-container')
 
@@ -62,11 +68,21 @@ function createLights(){
   const light3 = new THREE.DirectionalLight( 0x00ff00, 2.5);
 
   const light4 = new THREE.DirectionalLight( 0x00ff00, 4.0);
+
   //move light back and up
   light.position.set( -10, -10, 10);
   light2.position.set( 10, 10, 10 );
   light3.position.set(0,0,10);
   light4.position.set(0,40,-25);
+
+  //create ambient lighting
+  const ambientLight = new THREE.HemisphereLight(
+    0xff0000, // bright sky color
+    0x00ff00, // dim ground color
+    3, // intensity
+  );
+  scene.add( ambientLight );
+  //^^shines on all objects equally with no direction
 
   //add the light
   scene.add(light);
