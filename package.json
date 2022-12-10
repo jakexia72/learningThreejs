@@ -10,7 +10,7 @@
   "author": "Jake Xia",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "three": "^0.106.2"
   },
   "repository": {
